@@ -1,0 +1,127 @@
+local UI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui) --gethui()
+UI.Name = "R63 Key"
+
+local Drag = Instance.new("TextLabel", UI)
+Drag.Name = "Drag"
+Drag.AnchorPoint = Vector2.new(0.5, 0.5)
+Drag.Position = UDim2.new(0.5, 0, 0.2, 0)
+Drag.Size = UDim2.new(0, 400, 0, 25)
+Drag.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Drag.Active = true
+Drag.Draggable = true
+Drag.BorderSizePixel = 1
+Drag.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Drag.Text = "000Rufus"
+Drag.TextColor3 = Color3.fromRGB(255, 255, 255)
+Drag.TextStrokeTransparency = 0.5
+Drag.Font = Enum.Font.SourceSansBold
+Drag.TextScaled = true
+Drag.TextWrapped = true
+Drag.TextXAlignment = Enum.TextXAlignment.Left
+
+local Main = Instance.new("Frame", Drag)
+Main.Name = "Main"
+Main.AnchorPoint = Vector2.new(0, 0)
+Main.Position = UDim2.new(0, 0, 0, 25)
+Main.Size = UDim2.new(0, 400, 0, 200)
+Main.BackgroundColor3 = Color3.fromRGB(100, 0, 175)
+Main.BorderSizePixel = 1
+Main.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Main.ClipsDescendants = true
+
+local TextBody = Instance.new("TextBox", Main)
+TextBody.Name = "TextBox"
+TextBody.AnchorPoint = Vector2.new(0.5, 0.5)
+TextBody.Position = UDim2.new(0.375, 0, 0.25, 0)
+TextBody.Size = UDim2.new(0, 250, 0, 50)
+TextBody.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
+TextBody.BackgroundTransparency = 0.5
+TextBody.BorderSizePixel = 0
+TextBody.TextScaled = true
+TextBody.Text = ""
+TextBody.PlaceholderText = "Enter Key"
+TextBody.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBody.ZIndex = 2
+
+local Redeem = Instance.new("TextButton", TextBody)
+Redeem.Name = "Redeem"
+Redeem.TextScaled = true
+Redeem.Text = "Redeem"
+Redeem.Position = UDim2.new(1, 0, 0, 0)
+Redeem.Size = UDim2.new(0, 100, 0, 50)
+Redeem.TextColor3 = Color3.fromRGB(255, 255, 255)
+Redeem.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
+
+local Copy = Instance.new("TextButton", Main)
+Copy.TextScaled = true
+Copy.Text = "Copy Link"
+Copy.AnchorPoint = Vector2.new(0.5, 0.5)
+Copy.Position = UDim2.new(0.5, 0, 0.75, 0)
+Copy.Size = UDim2.new(0, 300, 0, 75)
+Copy.TextColor3 = Color3.fromRGB(255, 255, 255)
+Copy.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
+Copy.BackgroundTransparency = 0.5
+Copy.ZIndex = 2
+
+local Uishadow = Instance.new("UIShadow", Main)
+Uishadow.Name = "Uishadow"
+Uishadow.BlurRadius = UDim.new(0.1, 0)
+
+local Bg1 = Instance.new("ImageLabel", Main)
+Bg1.Name = "Bg1"
+Bg1.AnchorPoint = Vector2.new(0, 0)
+Bg1.Position = UDim2.new(0, 0, 0, 0)
+Bg1.Size = UDim2.new(1, 0, 1, 0)
+Bg1.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Bg1.BorderSizePixel = 0
+Bg1.ImageTransparency = 0.75
+Bg1.Image = "rbxassetid://14605469420"
+Bg1.ScaleType = Enum.ScaleType.Crop
+Bg1.BackgroundTransparency = 1
+
+local Bg2 = Instance.new("ImageLabel", Main)
+Bg2.Name = "Bg2"
+Bg2.AnchorPoint = Vector2.new(0, 0)
+Bg2.Position = UDim2.new(1, 0, 0, 0)
+Bg2.Size = UDim2.new(1, 0, 1, 0)
+Bg2.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Bg2.BorderSizePixel = 0
+Bg2.ImageTransparency = 0.75
+Bg2.Image = "rbxassetid://14605469420"
+Bg2.ScaleType = Enum.ScaleType.Crop
+Bg2.BackgroundTransparency = 1
+
+--Script
+
+local bg1 = Main:WaitForChild("Bg1")
+local bg2 = Main:WaitForChild("Bg2")
+
+local SPEED = 0.02
+local DIRECTION = -1
+
+game:GetService("RunService").RenderStepped:Connect(function(deltaTime)
+	local shift = SPEED * deltaTime * DIRECTION
+	bg1.Position = bg1.Position + UDim2.new(shift, 0, 0, 0)
+	bg2.Position = bg2.Position + UDim2.new(shift, 0, 0, 0)
+
+	if DIRECTION == -1 then
+		if bg1.Position.X.Scale <= -1 then
+			bg1.Position = UDim2.new(bg2.Position.X.Scale + 1, 0, 0, 0)
+		end
+		if bg2.Position.X.Scale <= -1 then
+			bg2.Position = UDim2.new(bg1.Position.X.Scale + 1, 0, 0, 0)
+		end
+	end
+end)
+
+Redeem.MouseButton1Click:Connect(function()
+	if TextBody.Text == "000Rufus" then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/pikm5369-cloud/Roblox-script/refs/heads/main/roblox%20script"))()
+		UI:Destroy()
+	else
+		TextBody.Text = "Invalid!"
+		TextBody.TextColor3 = Color3.fromRGB(255, 0, 0)
+		wait(0.5)
+		TextBody.TextColor3 = Color3.fromRGB(255, 255, 255)
+	end
+end)
