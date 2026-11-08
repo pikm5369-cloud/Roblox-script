@@ -1,0 +1,479 @@
+--by 000Rufus
+--r63 script v1.1.0
+--11/08/2026
+
+local AvatarType = nil
+local function onCharacterAdded(character)
+	if AvatarType == nil then
+		
+		--ui
+		
+		local UI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui) --gethui()
+		UI.Name = "R63 V1.1.0"
+
+		local Drag = Instance.new("TextLabel", UI)
+		Drag.Name = "Drag"
+		Drag.AnchorPoint = Vector2.new(0.5, 0.5)
+		Drag.Position = UDim2.new(0.5, 0, 0.2, 0)
+		Drag.Size = UDim2.new(0, 600, 0, 25)
+		Drag.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		Drag.Active = true
+		Drag.Draggable = true
+		Drag.BorderSizePixel = 1
+		Drag.BorderColor3 = Color3.fromRGB(255, 255, 255)
+		Drag.Text = "000Rufus"
+		Drag.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Drag.TextStrokeTransparency = 0.5
+		Drag.Font = Enum.Font.SourceSansBold
+		Drag.TextScaled = true
+		Drag.TextWrapped = true
+		Drag.TextXAlignment = Enum.TextXAlignment.Left
+
+		local Main = Instance.new("Frame", Drag)
+		Main.Name = "Main"
+		Main.AnchorPoint = Vector2.new(0, 0)
+		Main.Position = UDim2.new(0, 0, 0, 25)
+		Main.Size = UDim2.new(0, 600, 0, 350)
+		Main.BackgroundColor3 = Color3.fromRGB(100, 0, 175)
+		Main.BorderSizePixel = 1
+		Main.BorderColor3 = Color3.fromRGB(255, 255, 255)
+		Main.ClipsDescendants = true
+
+		local TextBody = Instance.new("TextLabel", Main)
+		TextBody.Name = "TextBody"
+		TextBody.AnchorPoint = Vector2.new(0.5, 0.5)
+		TextBody.Position = UDim2.new(0.5, 0, 0.075, 0)
+		TextBody.Size = UDim2.new(0, 350, 0, 50)
+		TextBody.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
+		TextBody.BackgroundTransparency = 0.5
+		TextBody.BorderSizePixel = 0
+		TextBody.TextScaled = true
+		TextBody.Text = "Select your avatar type"
+		TextBody.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TextBody.ZIndex = 2
+
+		local Girl = Instance.new("ImageButton", Main)
+		Girl.Image = "rbxassetid://75469071068830"
+		Girl.AnchorPoint = Vector2.new(0.5, 0.5)
+		Girl.Position = UDim2.new(0.25, 0, 0.55, 0)
+		Girl.Size = UDim2.new(0, 250, 0, 250)
+		Girl.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
+		Girl.BackgroundTransparency = 0.5
+		Girl.ZIndex = 2
+
+		local Woman = Instance.new("ImageButton", Main)
+		Woman.Image = "rbxassetid://131505883739031"
+		Woman.AnchorPoint = Vector2.new(0.5, 0.5)
+		Woman.Position = UDim2.new(0.75, 0, 0.55, 0)
+		Woman.Size = UDim2.new(0, 250, 0, 250)
+		Woman.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
+		Woman.BackgroundTransparency = 0.5
+		Woman.ZIndex = 2
+
+		local Uishadow = Instance.new("UIShadow", Main)
+		Uishadow.Name = "Uishadow"
+		Uishadow.BlurRadius = UDim.new(0.1, 0)
+
+		local Bg1 = Instance.new("ImageLabel", Main)
+		Bg1.Name = "Bg1"
+		Bg1.AnchorPoint = Vector2.new(0, 0)
+		Bg1.Position = UDim2.new(0, 0, 0, 0)
+		Bg1.Size = UDim2.new(1, 0, 1, 0)
+		Bg1.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+		Bg1.BorderSizePixel = 0
+		Bg1.ImageTransparency = 0.75
+		Bg1.Image = "rbxassetid://14605469420"
+		Bg1.ScaleType = Enum.ScaleType.Crop
+		Bg1.BackgroundTransparency = 1
+
+		local Bg2 = Instance.new("ImageLabel", Main)
+		Bg2.Name = "Bg2"
+		Bg2.AnchorPoint = Vector2.new(0, 0)
+		Bg2.Position = UDim2.new(1, 0, 0, 0)
+		Bg2.Size = UDim2.new(1, 0, 1, 0)
+		Bg2.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+		Bg2.BorderSizePixel = 0
+		Bg2.ImageTransparency = 0.75
+		Bg2.Image = "rbxassetid://14605469420"
+		Bg2.ScaleType = Enum.ScaleType.Crop
+		Bg2.BackgroundTransparency = 1
+
+		--Script
+
+		local bg1 = Main:WaitForChild("Bg1")
+		local bg2 = Main:WaitForChild("Bg2")
+
+		local SPEED = 0.02
+		local DIRECTION = -1
+
+		game:GetService("RunService").RenderStepped:Connect(function(deltaTime)
+			local shift = SPEED * deltaTime * DIRECTION
+			bg1.Position = bg1.Position + UDim2.new(shift, 0, 0, 0)
+			bg2.Position = bg2.Position + UDim2.new(shift, 0, 0, 0)
+
+			if DIRECTION == -1 then
+				if bg1.Position.X.Scale <= -1 then
+					bg1.Position = UDim2.new(bg2.Position.X.Scale + 1, 0, 0, 0)
+				end
+				if bg2.Position.X.Scale <= -1 then
+					bg2.Position = UDim2.new(bg1.Position.X.Scale + 1, 0, 0, 0)
+				end
+			end
+		end)
+		
+		Girl.MouseButton1Click:Connect(function()
+			AvatarType = "Girl"
+			character.Humanoid.Health = 0
+			UI:Destroy()
+		end)
+		
+		Woman.MouseButton1Click:Connect(function()
+			AvatarType = "Woman"
+			character.Humanoid.Health = 0
+			UI:Destroy()
+		end)
+		
+	else
+
+		wait(1)
+
+		local Player = game.Players.LocalPlayer
+		local Character = Player.Character
+		local Torso = Character.Torso
+
+		--boobs
+		
+		--Clothing
+		local Clothing = Instance.new("Part", Torso)
+		Clothing.Name = "Clothing"
+		Clothing.CanCollide = false
+		Clothing.Size = Vector3.new(1,1,1)
+
+		local Weld = Instance.new("Weld", Clothing)
+		Weld.Part0 = Clothing
+		Weld.Part1 = Torso
+		if AvatarType == "Woman" then
+			Weld.C0 = CFrame.new(0.45, -0.38, 0) * CFrame.Angles(0, math.rad(90), 0)
+		else
+			Weld.C0 = CFrame.new(0.55, -0.4, 0) * CFrame.Angles(0, math.rad(90), 0)
+		end
+
+		local Mesh = Instance.new("SpecialMesh", Clothing)
+		Mesh.MeshId = "rbxassetid://7606070501"
+		if AvatarType == "Woman" then
+			Mesh.Scale = Vector3.new(0.67, 0.67, 0.67)
+		end
+
+		--Left Boob
+
+		local LB = Instance.new("Part", Clothing)
+		LB.Name = "LeftBoob"
+		LB.CanCollide = false
+		LB.Size = Vector3.new(1,1,1)
+
+		local Weld = Instance.new("Weld", LB)
+		Weld.Part0 = LB
+		Weld.Part1 = Clothing
+		if AvatarType == "Woman" then
+			Weld.C0 = CFrame.new(0, 0, 0.3) * CFrame.Angles(0, math.rad(180), 0)
+		else
+			Weld.C0 = CFrame.new(0, 0, 0.4) * CFrame.Angles(0, math.rad(180), 0)
+		end
+
+
+		local Mesh = Instance.new("SpecialMesh", LB)
+		Mesh.MeshId = "rbxassetid://7557158485"
+		if AvatarType == "Woman" then
+			Mesh.Scale = Vector3.new(0.65, 0.65, 0.65)
+		else
+			Mesh.Scale = Vector3.new(0.95, 0.95, 1.05)
+		end
+
+		--RightBoob
+
+		local RB = Instance.new("Part", Clothing)
+		RB.Name = "RightBoob"
+		RB.CanCollide = false
+		RB.Size = Vector3.new(1,1,1)
+
+		local Weld = Instance.new("Weld", RB)
+		Weld.Part0 = RB
+		Weld.Part1 = Clothing
+		if AvatarType == "Woman" then
+			Weld.C0 = CFrame.new(0, 0, -0.3) * CFrame.Angles(0, math.rad(180), 0)
+		else
+			Weld.C0 = CFrame.new(0, 0, -0.4) * CFrame.Angles(0, math.rad(180), 0)
+		end
+
+
+		local Mesh = Instance.new("SpecialMesh", RB)
+		Mesh.MeshId = "rbxassetid://7557158128"
+		if AvatarType == "Woman" then
+			Mesh.Scale = Vector3.new(0.65, 0.65, 0.65)
+		else
+			Mesh.Scale = Vector3.new(0.95, 0.95, 1.05)
+		end
+
+		--LeftAssClothing
+
+		local LA = Instance.new("Part", Torso)
+		LA.Name = "LeftAssClothing"
+		LA.CanCollide = false
+		LA.Size = Vector3.new(1,1,1)
+		LA.Transparency = 0.05
+
+		local Weld = Instance.new("Weld", LA)
+		Weld.Part0 = LA
+		Weld.Part1 = Clothing
+		if AvatarType == "Woman" then
+			Weld.C0 = CFrame.new(0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+		else
+			Weld.C0 = CFrame.new(0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+		end
+
+		local Mesh = Instance.new("SpecialMesh", LA)
+		Mesh.MeshId = "rbxassetid://9051039280"
+		if AvatarType == "Woman" then
+			Mesh.Scale = Vector3.new(120, 125, 120)
+		else
+			Mesh.Scale = Vector3.new(150, 150, 150)
+		end
+
+		--RightAssClothing
+
+		local RA = Instance.new("Part", Torso)
+		RA.Name = "RightAssClothing"
+		RA.CanCollide = false
+		RA.Size = Vector3.new(1,1,1)
+		RA.Transparency = 0.05
+
+		local Weld = Instance.new("Weld", RA)
+		Weld.Part0 = RA
+		Weld.Part1 = Clothing
+		if AvatarType == "Woman" then
+			Weld.C0 = CFrame.new(-0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+		else
+			Weld.C0 = CFrame.new(-0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+		end
+
+		local Mesh = Instance.new("SpecialMesh", RA)
+		Mesh.MeshId = "rbxassetid://9051039280"
+		if AvatarType == "Woman" then
+		Mesh.Scale = Vector3.new(120, 125, 120)
+		else
+			Mesh.Scale = Vector3.new(150, 150, 150)
+		end
+		
+		--LeftAss
+		
+		local LAR = Instance.new("Part", LA)
+		LAR.Name = "LeftAss"
+		LAR.CanCollide = false
+		LAR.Size = Vector3.new(1,1,1)
+		
+		local Weld = Instance.new("Weld", LAR)
+		Weld.Part0 = LAR
+		Weld.Part1 = LA
+		Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
+		
+		local Mesh = Instance.new("SpecialMesh", LAR)
+		Mesh.MeshId = "rbxassetid://9051039280"
+		if AvatarType == "Woman" then
+			Mesh.Scale = Vector3.new(115, 120, 115)
+		else
+			Mesh.Scale = Vector3.new(145, 145, 145)
+		end
+		
+		--RightAss
+		
+		local RAR = Instance.new("Part", RA)
+		RAR.Name = "RightAss"
+		RAR.CanCollide = false
+		RAR.Size = Vector3.new(1,1,1)
+		
+		local Weld = Instance.new("Weld", RAR)
+		Weld.Part0 = RAR
+		Weld.Part1 = RA
+		Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
+		
+		local Mesh = Instance.new("SpecialMesh", RAR)
+		Mesh.MeshId = "rbxassetid://9051039280"
+		if AvatarType == "Woman" then
+			Mesh.Scale = Vector3.new(115, 120, 115)
+		else
+			Mesh.Scale = Vector3.new(145, 145, 145)
+		end
+		
+		if AvatarType == "Girl" then
+
+			--LeftLegClothing
+
+			Character["Left Leg"].Transparency = 1
+
+			local LL = Instance.new("Part", Character["Left Leg"])
+			LL.Name = "LeftLegClothing"
+			LL.CanCollide = false
+			LL.Size = Vector3.new(1,2,1)
+			LL.Transparency = 0.05
+
+			local Weld = Instance.new("Weld", LL)
+			Weld.Part0 = LL
+			Weld.Part1 = Character["Left Leg"]
+			Weld.C0 = CFrame.new(0, -0.1, 0) * CFrame.Angles(0, math.rad(-90), 0)
+
+			local Mesh = Instance.new("SpecialMesh", LL)
+			Mesh.MeshId = "rbxassetid://6870651596"
+			Mesh.Scale = Vector3.new(1.05, 1.05, 1.05)
+
+			--RightLegClothing
+
+			Character["Right Leg"].Transparency = 1
+
+			local RL = Instance.new("Part", Character["Right Leg"])
+			RL.Name = "RightLegClothing"
+			RL.CanCollide = false
+			RL.Size = Vector3.new(1,2,1)
+			RL.Transparency = 0.05
+			
+			local Weld = Instance.new("Weld", RL)
+			Weld.Part0 = RL
+			Weld.Part1 = Character["Right Leg"]
+			Weld.C0 = CFrame.new(0, -0.1, 0) * CFrame.Angles(0, math.rad(-90), 0)
+
+			local Mesh = Instance.new("SpecialMesh", RL)
+			Mesh.MeshId = "rbxassetid://6870651384"
+			Mesh.Scale = Vector3.new(1.05, 1.05, 1.05)
+			
+			--LeftLeg
+			
+			local LLR = Instance.new("Part", LL)
+			LLR.Name = "LeftLeg"
+			LLR.CanCollide = false
+			LLR.Size = Vector3.new(1,2,1)
+			
+			local Weld = Instance.new("Weld", LLR)
+			Weld.Part0 = LLR
+			Weld.Part1 = LL
+			Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(0), 0)
+			
+			local Mesh = Instance.new("SpecialMesh", LLR)
+			Mesh.MeshId = "rbxassetid://6870651596"
+			Mesh.Scale = Vector3.new(1.025, 1.025, 1.025)
+			
+			--RightLeg
+			
+			local RLR = Instance.new("Part", RL)
+			RLR.Name = "RightLeg"
+			RLR.CanCollide = false
+			RLR.Size = Vector3.new(1,2,1)
+
+			local Weld = Instance.new("Weld", RLR)
+			Weld.Part0 = RLR
+			Weld.Part1 = RL
+			Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(0), 0)
+
+			local Mesh = Instance.new("SpecialMesh", RLR)
+			Mesh.MeshId = "rbxassetid://6870651384"
+			Mesh.Scale = Vector3.new(1, 1, 1)
+		end
+		
+		--Script
+		
+		wait(1)
+		
+		while wait() do
+			local Shirt = character:FindFirstChildWhichIsA("Shirt")
+			local Pants = character:FindFirstChildWhichIsA("Pants")
+			if Shirt then
+				Clothing.Transparency = 0.05
+				if Clothing.Mesh.TextureId == Character:WaitForChild("Shirt").ShirtTemplate then
+				else
+					Clothing.Mesh.TextureId = Character:WaitForChild("Shirt").ShirtTemplate
+				end
+			elseif Pants then
+				Clothing.Transparency = 0.05
+				if Clothing.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+				else
+					Clothing.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+				end
+			else
+				Clothing.Color = Torso.Color
+				Clothing.Mesh.TextureId = ""
+				Clothing.Transparency = 0
+			end
+
+			if LB.Color == Torso.Color then
+			else
+				LB.Color = Torso.Color
+			end
+
+			if RB.Color == Torso.Color then
+			else
+				RB.Color = Torso.Color
+			end
+
+			if LAR.Color == Torso.Color then
+			else
+				LAR.Color = Torso.Color
+			end
+
+			if RAR.Color == Torso.Color then
+			else
+				RAR.Color = Torso.Color
+			end
+			
+			if Pants then
+				if RA.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+				else
+					RA.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+				end
+
+				if LA.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+				else
+					LA.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+				end
+			else
+				RA.Mesh.TextureId = ""
+				LA.Mesh.TextureId = ""
+				RA.Transparency = 1
+				LA.Transparency = 1
+			end
+			
+			if AvatarType == "Girl" then
+				if Pants then
+					Character["Left Leg"].LeftLegClothing.Transparency = 0.05
+					Character["Left Leg"].LeftLegClothing.Transparency = 0.05
+					if Character["Left Leg"].LeftLegClothing.LeftLeg.Color == Character["Left Leg"].Color then
+					else
+						Character["Left Leg"].LeftLegClothing.LeftLeg.Color = Character["Left Leg"].Color
+					end
+
+					if Character["Right Leg"].RightLegClothing.RightLeg.Color == Character["Right Leg"].Color then
+					else
+						Character["Right Leg"].RightLegClothing.RightLeg.Color = Character["Right Leg"].Color
+					end
+
+					if Character["Left Leg"].LeftLegClothing.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+					else
+						Character["Left Leg"].LeftLegClothing.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+					end
+
+					if Character["Right Leg"].RightLegClothing.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+					else
+						Character["Right Leg"].RightLegClothing.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+					end
+				else
+					Character["Left Leg"].LeftLegClothing.Transparency = 1
+					Character["Right Leg"].RightLegClothing.Transparency = 1
+					
+				end
+			end
+		end
+	end
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+if game.Players.LocalPlayer.Character then
+	onCharacterAdded(game.Players.LocalPlayer.Character)
+end
