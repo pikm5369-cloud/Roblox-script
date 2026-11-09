@@ -1,13 +1,13 @@
 --by 000Rufus
---r63 script v1.1.0
---11/08/2026
+--r63 script v1.2.0
+--11/10/2026
 
 local AvatarType = nil
 local function onCharacterAdded(character)
 	if AvatarType == nil then
-		
+
 		--ui
-		
+
 		local UI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui) --gethui()
 		UI.Name = "R63 V1.1.0"
 
@@ -120,42 +120,61 @@ local function onCharacterAdded(character)
 				end
 			end
 		end)
-		
+
 		Girl.MouseButton1Click:Connect(function()
 			AvatarType = "Girl"
 			character.Humanoid.Health = 0
 			UI:Destroy()
 		end)
-		
+
 		Woman.MouseButton1Click:Connect(function()
 			AvatarType = "Woman"
 			character.Humanoid.Health = 0
 			UI:Destroy()
 		end)
-		
+
 	else
 
 		wait(1)
 
 		local Player = game.Players.LocalPlayer
-		local Character = Player.Character
-		local Torso = Character.Torso
+		local Character = Player.character
+		local Torso = character:FindFirstChild("Torso")
+		local UpperTorso = character:FindFirstChild("UpperTorso")
+		local LowerTorso = character:FindFirstChild("LowerTorso")
 
 		--boobs
-		
+
 		--Clothing
-		local Clothing = Instance.new("Part", Torso)
+		local Clothing = Instance.new("Part")
 		Clothing.Name = "Clothing"
 		Clothing.CanCollide = false
 		Clothing.Size = Vector3.new(1,1,1)
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Clothing.Parent = Torso
+		else
+			Clothing.Parent = UpperTorso
+		end
 
 		local Weld = Instance.new("Weld", Clothing)
 		Weld.Part0 = Clothing
-		Weld.Part1 = Torso
-		if AvatarType == "Woman" then
-			Weld.C0 = CFrame.new(0.45, -0.38, 0) * CFrame.Angles(0, math.rad(90), 0)
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Weld.Part1 = Torso
 		else
-			Weld.C0 = CFrame.new(0.55, -0.4, 0) * CFrame.Angles(0, math.rad(90), 0)
+			Weld.Part1 = UpperTorso
+		end
+		if AvatarType == "Woman" then
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+				Weld.C0 = CFrame.new(0.45, -0.38, 0) * CFrame.Angles(0, math.rad(90), 0)
+			else
+				Weld.C0 = CFrame.new(0.4, -0.1, 0) * CFrame.Angles(0, math.rad(90), 0)
+			end
+		else
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+				Weld.C0 = CFrame.new(0.55, -0.4, 0) * CFrame.Angles(0, math.rad(90), 0)
+			else
+				Weld.C0 = CFrame.new(0.55, -0.25, 0) * CFrame.Angles(0, math.rad(90), 0)
+			end
 		end
 
 		local Mesh = Instance.new("SpecialMesh", Clothing)
@@ -216,19 +235,31 @@ local function onCharacterAdded(character)
 
 		--LeftAssClothing
 
-		local LA = Instance.new("Part", Torso)
+		local LA = Instance.new("Part")
 		LA.Name = "LeftAssClothing"
 		LA.CanCollide = false
 		LA.Size = Vector3.new(1,1,1)
 		LA.Transparency = 0.05
-
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			LA.Parent = Torso
+		else
+			LA.Parent = LowerTorso
+		end
 		local Weld = Instance.new("Weld", LA)
 		Weld.Part0 = LA
 		Weld.Part1 = Clothing
 		if AvatarType == "Woman" then
-			Weld.C0 = CFrame.new(0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+				Weld.C0 = CFrame.new(0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+			else
+				Weld.C0 = CFrame.new(0.35, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
+			end
 		else
-			Weld.C0 = CFrame.new(0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+				Weld.C0 = CFrame.new(0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+			else
+				Weld.C0 = CFrame.new(0.5, 1, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+			end
 		end
 
 		local Mesh = Instance.new("SpecialMesh", LA)
@@ -241,41 +272,54 @@ local function onCharacterAdded(character)
 
 		--RightAssClothing
 
-		local RA = Instance.new("Part", Torso)
+		local RA = Instance.new("Part")
 		RA.Name = "RightAssClothing"
 		RA.CanCollide = false
 		RA.Size = Vector3.new(1,1,1)
 		RA.Transparency = 0.05
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			RA.Parent = Torso
+		else
+			RA.Parent = LowerTorso
+		end
 
 		local Weld = Instance.new("Weld", RA)
 		Weld.Part0 = RA
 		Weld.Part1 = Clothing
 		if AvatarType == "Woman" then
-			Weld.C0 = CFrame.new(-0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+				Weld.C0 = CFrame.new(-0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+			else
+				Weld.C0 = CFrame.new(-0.35, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
+			end
 		else
-			Weld.C0 = CFrame.new(-0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+				Weld.C0 = CFrame.new(-0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+			else
+				Weld.C0 = CFrame.new(-0.5, 1, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
+			end
 		end
 
 		local Mesh = Instance.new("SpecialMesh", RA)
 		Mesh.MeshId = "rbxassetid://9051039280"
 		if AvatarType == "Woman" then
-		Mesh.Scale = Vector3.new(120, 125, 120)
+			Mesh.Scale = Vector3.new(120, 125, 120)
 		else
 			Mesh.Scale = Vector3.new(150, 150, 150)
 		end
-		
+
 		--LeftAss
-		
+
 		local LAR = Instance.new("Part", LA)
 		LAR.Name = "LeftAss"
 		LAR.CanCollide = false
 		LAR.Size = Vector3.new(1,1,1)
-		
+
 		local Weld = Instance.new("Weld", LAR)
 		Weld.Part0 = LAR
 		Weld.Part1 = LA
 		Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
-		
+
 		local Mesh = Instance.new("SpecialMesh", LAR)
 		Mesh.MeshId = "rbxassetid://9051039280"
 		if AvatarType == "Woman" then
@@ -283,19 +327,19 @@ local function onCharacterAdded(character)
 		else
 			Mesh.Scale = Vector3.new(145, 145, 145)
 		end
-		
+
 		--RightAss
-		
+
 		local RAR = Instance.new("Part", RA)
 		RAR.Name = "RightAss"
 		RAR.CanCollide = false
 		RAR.Size = Vector3.new(1,1,1)
-		
+
 		local Weld = Instance.new("Weld", RAR)
 		Weld.Part0 = RAR
 		Weld.Part1 = RA
 		Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
-		
+
 		local Mesh = Instance.new("SpecialMesh", RAR)
 		Mesh.MeshId = "rbxassetid://9051039280"
 		if AvatarType == "Woman" then
@@ -303,84 +347,86 @@ local function onCharacterAdded(character)
 		else
 			Mesh.Scale = Vector3.new(145, 145, 145)
 		end
-		
+
 		if AvatarType == "Girl" then
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 
-			--LeftLegClothing
+				--LeftLegClothing
 
-			Character["Left Leg"].Transparency = 1
+				Character["Left Leg"].Transparency = 1
 
-			local LL = Instance.new("Part", Character["Left Leg"])
-			LL.Name = "LeftLegClothing"
-			LL.CanCollide = false
-			LL.Size = Vector3.new(1,2,1)
-			LL.Transparency = 0.05
+				local LL = Instance.new("Part", Character["Left Leg"])
+				LL.Name = "LeftLegClothing"
+				LL.CanCollide = false
+				LL.Size = Vector3.new(1,2,1)
+				LL.Transparency = 0.05
 
-			local Weld = Instance.new("Weld", LL)
-			Weld.Part0 = LL
-			Weld.Part1 = Character["Left Leg"]
-			Weld.C0 = CFrame.new(0, -0.1, 0) * CFrame.Angles(0, math.rad(-90), 0)
+				local Weld = Instance.new("Weld", LL)
+				Weld.Part0 = LL
+				Weld.Part1 = Character["Left Leg"]
+				Weld.C0 = CFrame.new(0, -0.1, 0) * CFrame.Angles(0, math.rad(-90), 0)
 
-			local Mesh = Instance.new("SpecialMesh", LL)
-			Mesh.MeshId = "rbxassetid://6870651596"
-			Mesh.Scale = Vector3.new(1.05, 1.05, 1.05)
+				local Mesh = Instance.new("SpecialMesh", LL)
+				Mesh.MeshId = "rbxassetid://6870651596"
+				Mesh.Scale = Vector3.new(1.05, 1.05, 1.05)
 
-			--RightLegClothing
+				--RightLegClothing
 
-			Character["Right Leg"].Transparency = 1
+				Character["Right Leg"].Transparency = 1
 
-			local RL = Instance.new("Part", Character["Right Leg"])
-			RL.Name = "RightLegClothing"
-			RL.CanCollide = false
-			RL.Size = Vector3.new(1,2,1)
-			RL.Transparency = 0.05
-			
-			local Weld = Instance.new("Weld", RL)
-			Weld.Part0 = RL
-			Weld.Part1 = Character["Right Leg"]
-			Weld.C0 = CFrame.new(0, -0.1, 0) * CFrame.Angles(0, math.rad(-90), 0)
+				local RL = Instance.new("Part", Character["Right Leg"])
+				RL.Name = "RightLegClothing"
+				RL.CanCollide = false
+				RL.Size = Vector3.new(1,2,1)
+				RL.Transparency = 0.05
 
-			local Mesh = Instance.new("SpecialMesh", RL)
-			Mesh.MeshId = "rbxassetid://6870651384"
-			Mesh.Scale = Vector3.new(1.05, 1.05, 1.05)
-			
-			--LeftLeg
-			
-			local LLR = Instance.new("Part", LL)
-			LLR.Name = "LeftLeg"
-			LLR.CanCollide = false
-			LLR.Size = Vector3.new(1,2,1)
-			
-			local Weld = Instance.new("Weld", LLR)
-			Weld.Part0 = LLR
-			Weld.Part1 = LL
-			Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(0), 0)
-			
-			local Mesh = Instance.new("SpecialMesh", LLR)
-			Mesh.MeshId = "rbxassetid://6870651596"
-			Mesh.Scale = Vector3.new(1.025, 1.025, 1.025)
-			
-			--RightLeg
-			
-			local RLR = Instance.new("Part", RL)
-			RLR.Name = "RightLeg"
-			RLR.CanCollide = false
-			RLR.Size = Vector3.new(1,2,1)
+				local Weld = Instance.new("Weld", RL)
+				Weld.Part0 = RL
+				Weld.Part1 = Character["Right Leg"]
+				Weld.C0 = CFrame.new(0, -0.1, 0) * CFrame.Angles(0, math.rad(-90), 0)
 
-			local Weld = Instance.new("Weld", RLR)
-			Weld.Part0 = RLR
-			Weld.Part1 = RL
-			Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(0), 0)
+				local Mesh = Instance.new("SpecialMesh", RL)
+				Mesh.MeshId = "rbxassetid://6870651384"
+				Mesh.Scale = Vector3.new(1.05, 1.05, 1.05)
 
-			local Mesh = Instance.new("SpecialMesh", RLR)
-			Mesh.MeshId = "rbxassetid://6870651384"
-			Mesh.Scale = Vector3.new(1, 1, 1)
+				--LeftLeg
+
+				local LLR = Instance.new("Part", LL)
+				LLR.Name = "LeftLeg"
+				LLR.CanCollide = false
+				LLR.Size = Vector3.new(1,2,1)
+
+				local Weld = Instance.new("Weld", LLR)
+				Weld.Part0 = LLR
+				Weld.Part1 = LL
+				Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(0), 0)
+
+				local Mesh = Instance.new("SpecialMesh", LLR)
+				Mesh.MeshId = "rbxassetid://6870651596"
+				Mesh.Scale = Vector3.new(1.025, 1.025, 1.025)
+
+				--RightLeg
+
+				local RLR = Instance.new("Part", RL)
+				RLR.Name = "RightLeg"
+				RLR.CanCollide = false
+				RLR.Size = Vector3.new(1,2,1)
+
+				local Weld = Instance.new("Weld", RLR)
+				Weld.Part0 = RLR
+				Weld.Part1 = RL
+				Weld.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(0), 0)
+
+				local Mesh = Instance.new("SpecialMesh", RLR)
+				Mesh.MeshId = "rbxassetid://6870651384"
+				Mesh.Scale = Vector3.new(1, 1, 1)
+			end
 		end
-		
+
 		--Script
-		
+
 		wait(1)
-		
+
 		while wait() do
 			local Shirt = character:FindFirstChildWhichIsA("Shirt")
 			local Pants = character:FindFirstChildWhichIsA("Pants")
@@ -402,26 +448,48 @@ local function onCharacterAdded(character)
 				Clothing.Transparency = 0
 			end
 
-			if LB.Color == Torso.Color then
+			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+				if LB.Color == Torso.Color then
+				else
+					LB.Color = Torso.Color
+				end
+
+				if RB.Color == Torso.Color then
+				else
+					RB.Color = Torso.Color
+				end
+
+				if LAR.Color == Torso.Color then
+				else
+					LAR.Color = Torso.Color
+				end
+
+				if RAR.Color == Torso.Color then
+				else
+					RAR.Color = Torso.Color
+				end
 			else
-				LB.Color = Torso.Color
+				if LB.Color == UpperTorso.Color then
+				else
+					LB.Color = UpperTorso.Color
+				end
+
+				if RB.Color == UpperTorso.Color then
+				else
+					RB.Color = UpperTorso.Color
+				end
+
+				if LAR.Color == LowerTorso.Color then
+				else
+					LAR.Color = LowerTorso.Color
+				end
+
+				if RAR.Color == LowerTorso.Color then
+				else
+					RAR.Color = LowerTorso.Color
+				end
 			end
 
-			if RB.Color == Torso.Color then
-			else
-				RB.Color = Torso.Color
-			end
-
-			if LAR.Color == Torso.Color then
-			else
-				LAR.Color = Torso.Color
-			end
-
-			if RAR.Color == Torso.Color then
-			else
-				RAR.Color = Torso.Color
-			end
-			
 			if Pants then
 				if RA.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
 				else
@@ -438,39 +506,41 @@ local function onCharacterAdded(character)
 				RA.Transparency = 1
 				LA.Transparency = 1
 			end
-			
+
 			if AvatarType == "Girl" then
-				if Pants then
-					Character["Left Leg"].LeftLegClothing.Transparency = 0.05
-					Character["Left Leg"].LeftLegClothing.Transparency = 0.05
-					if Character["Left Leg"].LeftLegClothing.LeftLeg.Color == Character["Left Leg"].Color then
-					else
-						Character["Left Leg"].LeftLegClothing.LeftLeg.Color = Character["Left Leg"].Color
-					end
+				if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+					if Pants then
+						Character["Left Leg"].LeftLegClothing.Transparency = 0.05
+						Character["Left Leg"].LeftLegClothing.Transparency = 0.05
+						if Character["Left Leg"].LeftLegClothing.LeftLeg.Color == Character["Left Leg"].Color then
+						else
+							Character["Left Leg"].LeftLegClothing.LeftLeg.Color = Character["Left Leg"].Color
+						end
 
-					if Character["Right Leg"].RightLegClothing.RightLeg.Color == Character["Right Leg"].Color then
-					else
-						Character["Right Leg"].RightLegClothing.RightLeg.Color = Character["Right Leg"].Color
-					end
+						if Character["Right Leg"].RightLegClothing.RightLeg.Color == Character["Right Leg"].Color then
+						else
+							Character["Right Leg"].RightLegClothing.RightLeg.Color = Character["Right Leg"].Color
+						end
 
-					if Character["Left Leg"].LeftLegClothing.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
-					else
-						Character["Left Leg"].LeftLegClothing.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
-					end
+						if Character["Left Leg"].LeftLegClothing.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+						else
+							Character["Left Leg"].LeftLegClothing.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+						end
 
-					if Character["Right Leg"].RightLegClothing.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+						if Character["Right Leg"].RightLegClothing.Mesh.TextureId == Character:WaitForChild("Pants").PantsTemplate then
+						else
+							Character["Right Leg"].RightLegClothing.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+						end
 					else
-						Character["Right Leg"].RightLegClothing.Mesh.TextureId = Character:WaitForChild("Pants").PantsTemplate
+						Character["Left Leg"].LeftLegClothing.Transparency = 1
+						Character["Right Leg"].RightLegClothing.Transparency = 1
 					end
-				else
-					Character["Left Leg"].LeftLegClothing.Transparency = 1
-					Character["Right Leg"].RightLegClothing.Transparency = 1
-					
 				end
 			end
 		end
 	end
 end
+
 
 game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
 
