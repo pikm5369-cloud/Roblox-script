@@ -1,6 +1,6 @@
 --by 000Rufus
 --r63 script v1.2.0
---11/10/2026
+--11/11/2026
 
 local AvatarType = nil
 local function onCharacterAdded(character)
@@ -250,9 +250,9 @@ local function onCharacterAdded(character)
 		Weld.Part1 = Clothing
 		if AvatarType == "Woman" then
 			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+				Weld.C0 = CFrame.new(0.3, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
 			else
-				Weld.C0 = CFrame.new(0.35, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
+				Weld.C0 = CFrame.new(0.3, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
 			end
 		else
 			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
@@ -265,7 +265,7 @@ local function onCharacterAdded(character)
 		local Mesh = Instance.new("SpecialMesh", LA)
 		Mesh.MeshId = "rbxassetid://9051039280"
 		if AvatarType == "Woman" then
-			Mesh.Scale = Vector3.new(120, 125, 120)
+			Mesh.Scale = Vector3.new(110, 115, 110)
 		else
 			Mesh.Scale = Vector3.new(150, 150, 150)
 		end
@@ -288,9 +288,9 @@ local function onCharacterAdded(character)
 		Weld.Part1 = Clothing
 		if AvatarType == "Woman" then
 			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(-0.35, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
+				Weld.C0 = CFrame.new(-0.3, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
 			else
-				Weld.C0 = CFrame.new(-0.35, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
+				Weld.C0 = CFrame.new(-0.3, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
 			end
 		else
 			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
@@ -303,7 +303,7 @@ local function onCharacterAdded(character)
 		local Mesh = Instance.new("SpecialMesh", RA)
 		Mesh.MeshId = "rbxassetid://9051039280"
 		if AvatarType == "Woman" then
-			Mesh.Scale = Vector3.new(120, 125, 120)
+			Mesh.Scale = Vector3.new(110, 115, 110)
 		else
 			Mesh.Scale = Vector3.new(150, 150, 150)
 		end
@@ -323,7 +323,7 @@ local function onCharacterAdded(character)
 		local Mesh = Instance.new("SpecialMesh", LAR)
 		Mesh.MeshId = "rbxassetid://9051039280"
 		if AvatarType == "Woman" then
-			Mesh.Scale = Vector3.new(115, 120, 115)
+			Mesh.Scale = Vector3.new(105, 110, 105)
 		else
 			Mesh.Scale = Vector3.new(145, 145, 145)
 		end
@@ -343,7 +343,7 @@ local function onCharacterAdded(character)
 		local Mesh = Instance.new("SpecialMesh", RAR)
 		Mesh.MeshId = "rbxassetid://9051039280"
 		if AvatarType == "Woman" then
-			Mesh.Scale = Vector3.new(115, 120, 115)
+			Mesh.Scale = Vector3.new(105, 110, 105)
 		else
 			Mesh.Scale = Vector3.new(145, 145, 145)
 		end
