@@ -1,5 +1,5 @@
 --by 000Rufus
---r63 script v1.2.0
+--r63 script v2.0.0
 --11/11/2026
 
 local AvatarType = nil
@@ -9,7 +9,7 @@ local function onCharacterAdded(character)
 		--ui
 
 		local UI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui) --gethui()
-		UI.Name = "R63 V1.1.0"
+		UI.Name = "R63 V2.0.0"
 
 		local Drag = Instance.new("TextLabel", UI)
 		Drag.Name = "Drag"
@@ -133,7 +133,11 @@ local function onCharacterAdded(character)
 			UI:Destroy()
 		end)
 
+
 	else
+
+		print("R15 1")
+
 
 		wait(1)
 
@@ -149,32 +153,11 @@ local function onCharacterAdded(character)
 		local Clothing = Instance.new("Part")
 		Clothing.Name = "Clothing"
 		Clothing.CanCollide = false
-		Clothing.Size = Vector3.new(1,1,1)
+		Clothing.Size = Vector3.new(1,1,2)
 		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 			Clothing.Parent = Torso
 		else
 			Clothing.Parent = UpperTorso
-		end
-
-		local Weld = Instance.new("Weld", Clothing)
-		Weld.Part0 = Clothing
-		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-			Weld.Part1 = Torso
-		else
-			Weld.Part1 = UpperTorso
-		end
-		if AvatarType == "Woman" then
-			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(0.45, -0.38, 0) * CFrame.Angles(0, math.rad(90), 0)
-			else
-				Weld.C0 = CFrame.new(0.4, -0.1, 0) * CFrame.Angles(0, math.rad(90), 0)
-			end
-		else
-			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(0.55, -0.4, 0) * CFrame.Angles(0, math.rad(90), 0)
-			else
-				Weld.C0 = CFrame.new(0.55, -0.25, 0) * CFrame.Angles(0, math.rad(90), 0)
-			end
 		end
 
 		local Mesh = Instance.new("SpecialMesh", Clothing)
@@ -224,7 +207,6 @@ local function onCharacterAdded(character)
 			Weld.C0 = CFrame.new(0, 0, -0.4) * CFrame.Angles(0, math.rad(180), 0)
 		end
 
-
 		local Mesh = Instance.new("SpecialMesh", RB)
 		Mesh.MeshId = "rbxassetid://7557158128"
 		if AvatarType == "Woman" then
@@ -233,33 +215,35 @@ local function onCharacterAdded(character)
 			Mesh.Scale = Vector3.new(0.95, 0.95, 1.05)
 		end
 
+		--AssClothing
+
+		local AC = Instance.new("Part")
+		AC.Name = "AssClothing"
+		AC.CanCollide = false
+		AC.Size = Vector3.new(1,1,2)
+		AC.Transparency = 1
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			AC.Parent = Torso
+		else
+			AC.Parent = LowerTorso
+		end
+
+
 		--LeftAssClothing
 
-		local LA = Instance.new("Part")
+		local LA = Instance.new("Part", AC)
 		LA.Name = "LeftAssClothing"
 		LA.CanCollide = false
 		LA.Size = Vector3.new(1,1,1)
 		LA.Transparency = 0.05
-		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-			LA.Parent = Torso
-		else
-			LA.Parent = LowerTorso
-		end
+
 		local Weld = Instance.new("Weld", LA)
 		Weld.Part0 = LA
-		Weld.Part1 = Clothing
+		Weld.Part1 = AC
 		if AvatarType == "Woman" then
-			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(0.3, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
-			else
-				Weld.C0 = CFrame.new(0.3, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
-			end
+			Weld.C0 = CFrame.new(0.35, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
 		else
-			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
-			else
-				Weld.C0 = CFrame.new(0.5, 1, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
-			end
+			Weld.C0 = CFrame.new(0.5, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
 		end
 
 		local Mesh = Instance.new("SpecialMesh", LA)
@@ -272,32 +256,19 @@ local function onCharacterAdded(character)
 
 		--RightAssClothing
 
-		local RA = Instance.new("Part")
+		local RA = Instance.new("Part", AC)
 		RA.Name = "RightAssClothing"
 		RA.CanCollide = false
 		RA.Size = Vector3.new(1,1,1)
 		RA.Transparency = 0.05
-		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-			RA.Parent = Torso
-		else
-			RA.Parent = LowerTorso
-		end
 
 		local Weld = Instance.new("Weld", RA)
 		Weld.Part0 = RA
-		Weld.Part1 = Clothing
+		Weld.Part1 = AC
 		if AvatarType == "Woman" then
-			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(-0.3, 1, -0.7) * CFrame.Angles(0, math.rad(-90), 0)
-			else
-				Weld.C0 = CFrame.new(-0.3, 1, -0.65) * CFrame.Angles(0, math.rad(-90), 0)
-			end
+			Weld.C0 = CFrame.new(-0.35, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
 		else
-			if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-				Weld.C0 = CFrame.new(-0.5, 1.2, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
-			else
-				Weld.C0 = CFrame.new(-0.5, 1, -0.9) * CFrame.Angles(0, math.rad(-90), 0)
-			end
+			Weld.C0 = CFrame.new(-0.5, 0, 0) * CFrame.Angles(0, math.rad(-90), 0)
 		end
 
 		local Mesh = Instance.new("SpecialMesh", RA)
@@ -425,7 +396,151 @@ local function onCharacterAdded(character)
 
 		--Script
 
+		--Boobs&Ass Physics
+
 		wait(1)
+
+
+		--Clothing
+
+		local HingeConstraint = Instance.new("HingeConstraint", Clothing)
+		HingeConstraint.LimitsEnabled = true
+		HingeConstraint.LowerAngle = 45
+		HingeConstraint.UpperAngle = 135
+
+		local Attachment = Instance.new("Attachment")
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Attachment.Parent = Torso
+		else
+			Attachment.Parent = UpperTorso
+		end
+		Attachment.Name = "ClothingAttachment"
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			if AvatarType == "Woman" then
+				Attachment.Position = Vector3.new(0, 0.3, 0)
+			else
+				Attachment.Position = Vector3.new(0, 0.4, 0)
+			end
+		else
+			if AvatarType == "Woman" then
+				Attachment.Position = Vector3.new(0, 0, 0.1)
+			else
+				Attachment.Position = Vector3.new(0, 0.3, 0)
+			end
+		end
+
+		Attachment.Orientation = Vector3.new(0, 0, 0)
+
+		local Attachment2 = Instance.new("Attachment", Clothing)
+		Attachment2.Name = "ClothingAttachment2"
+		Attachment2.Position = Vector3.new(0.5, 0, 0)
+		Attachment2.Orientation = Vector3.new(90, 90, 0)
+
+		HingeConstraint.Attachment0 = Attachment
+		HingeConstraint.Attachment1 = Attachment2
+
+		local SpringConstraint = Instance.new("SpringConstraint", Clothing)
+		SpringConstraint.Damping = 35
+		SpringConstraint.Stiffness = 1000
+		SpringConstraint.FreeLength = 1.6
+
+		local Attachment3 = Instance.new("Attachment", Clothing)
+		Attachment3.Name = "ClothingAttachmentS1"
+		Attachment3.Position = Vector3.new(-0.5, -0.5, 0)
+		Attachment3.Orientation = Vector3.new(0, 0, 0)
+
+		local Attachment4 = Instance.new("Attachment")
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Attachment4.Parent = Torso
+		else
+			Attachment4.Parent = UpperTorso
+		end
+		Attachment4.Name = "ClothingAttachmentS2"
+		Attachment4.Position = Vector3.new(0, -1, 0)
+		Attachment4.Orientation = Vector3.new(0, 0, 0)
+
+		SpringConstraint.Attachment0 = Attachment3
+		SpringConstraint.Attachment1 = Attachment4
+
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Clothing.CFrame = Torso.CFrame
+		else
+			Clothing.CFrame = UpperTorso.CFrame
+		end
+
+		--AssClothing
+
+		local HingeConstraint = Instance.new("HingeConstraint", AC)
+		HingeConstraint.LimitsEnabled = true
+		HingeConstraint.LowerAngle = 45
+		HingeConstraint.UpperAngle = 135
+
+		local Attachment = Instance.new("Attachment")
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Attachment.Parent = Torso
+		else
+			Attachment.Parent = LowerTorso
+		end
+		
+		Attachment.Name = "AAttachment"
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			if AvatarType == "Woman" then
+				Attachment.Position = Vector3.new(0, -0.75, -0.2)
+			else
+				Attachment.Position = Vector3.new(0, -0.75, -0.1)
+			end
+		else
+			if AvatarType == "Woman" then
+				Attachment.Position = Vector3.new(0, -0.2, -0.3)
+			else
+				Attachment.Position = Vector3.new(0, -0.2, -0.2)
+			end
+		end
+		Attachment.Orientation = Vector3.new(0, -180, -180)
+
+		local Attachment2 = Instance.new("Attachment", AC)
+		Attachment2.Name = "AAttachment2"
+		Attachment2.Position = Vector3.new(0.5, 0, 0)
+		Attachment2.Orientation = Vector3.new(90, 90, 0)
+
+		HingeConstraint.Attachment0 = Attachment
+		HingeConstraint.Attachment1 = Attachment2
+
+		local SpringConstraint = Instance.new("SpringConstraint", AC)
+		SpringConstraint.Damping = 25
+		SpringConstraint.Stiffness = 1500
+		SpringConstraint.FreeLength = 1.55
+
+		local Attachment3 = Instance.new("Attachment", AC)
+		Attachment3.Name = "LAttachmentS1"
+		Attachment3.Position = Vector3.new(-0.5, 0, 0)
+		Attachment3.Orientation = Vector3.new(0, 0, 0)
+
+		local Attachment4 = Instance.new("Attachment")
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Attachment4.Parent = Torso
+		else
+			Attachment4.Parent = LowerTorso
+		end
+		Attachment4.Name = "LAttachmentS2"
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			Attachment4.Position = Vector3.new(0, -2, 0.5)
+		else
+			Attachment4.Position = Vector3.new(0, -1.5, 0.5)
+		end
+		Attachment4.Orientation = Vector3.new(0, 0, 0)
+
+		SpringConstraint.Attachment0 = Attachment3
+		SpringConstraint.Attachment1 = Attachment4
+		
+		if Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+			AC.CFrame = Torso.CFrame
+		else
+			AC.CFrame = UpperTorso.CFrame
+		end
+
+
+		--Colors and Textures
 
 		while wait() do
 			local Shirt = character:FindFirstChildWhichIsA("Shirt")
