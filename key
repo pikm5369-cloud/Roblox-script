@@ -1,5 +1,5 @@
 local UI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui) --gethui()
-UI.Name = "R63 Key"
+UI.Name = "R63 Key 2.0.0"
 
 local Drag = Instance.new("TextLabel", UI)
 Drag.Name = "Drag"
@@ -11,7 +11,7 @@ Drag.Active = true
 Drag.Draggable = true
 Drag.BorderSizePixel = 1
 Drag.BorderColor3 = Color3.fromRGB(255, 255, 255)
-Drag.Text = "000Rufus"
+Drag.Text = "R63 V2 By 000Rufus"
 Drag.TextColor3 = Color3.fromRGB(255, 255, 255)
 Drag.TextStrokeTransparency = 0.5
 Drag.Font = Enum.Font.SourceSansBold
@@ -54,7 +54,7 @@ Redeem.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
 
 local Copy = Instance.new("TextButton", Main)
 Copy.TextScaled = true
-Copy.Text = "Copy Link"
+Copy.Text = "Get Key"
 Copy.AnchorPoint = Vector2.new(0.5, 0.5)
 Copy.Position = UDim2.new(0.5, 0, 0.75, 0)
 Copy.Size = UDim2.new(0, 300, 0, 75)
@@ -112,6 +112,12 @@ game:GetService("RunService").RenderStepped:Connect(function(deltaTime)
 			bg2.Position = UDim2.new(bg1.Position.X.Scale + 1, 0, 0, 0)
 		end
 	end
+end)
+
+Copy.MouseButton1Down:connect(function()
+	setclipboard("https://discord.gg/wjHX8FAmn")
+
+	game.StarterGui:SetCore("SendNotification", {Title = "Key copied", Text = "The key was copied into your clipboard", Icon = "", Duration = 5})
 end)
 
 Redeem.MouseButton1Click:Connect(function()
